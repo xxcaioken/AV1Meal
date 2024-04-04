@@ -34,6 +34,30 @@ class UsersController{
             return response.status(409).send()
         }
     }
+
+    async update(request, response){
+        try{
+            
+            const { name, email } = request.body
+            const { id } = request.params
+            
+            const result = await prisma.user.update({
+                where: {
+                    id: id,
+                },
+                data: {
+                    name: name,
+                    email: email,
+                },
+            });
+            
+            return response.status(200).send()
+
+        }catch (err) { 
+            return response.status(409).send()
+        }
+
+    }
 }
 
 
