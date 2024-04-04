@@ -50,7 +50,29 @@ class UsersController{
                     email: email,
                 },
             });
-            
+
+            return response.status(200).send()
+
+        }catch (err) { 
+            return response.status(409).send()
+        }
+
+    }
+
+    async delete(request, response){
+        
+        try{
+            const { id } = request.params
+            //const { id } = request.body
+            console.log(`id: ${id}`)
+
+        
+            const deleteUser = await prisma.user.delete({
+                where: {
+                    id: id,
+                },
+            })
+
             return response.status(200).send()
 
         }catch (err) { 

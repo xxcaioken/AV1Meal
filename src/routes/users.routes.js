@@ -15,6 +15,7 @@ const usersController = new UsersController()
 usersRoutes.post('/create', usersController.create)
 usersRoutes.get('/show', usersController.show)
 usersRoutes.put('/update/:id', usersController.update)
+usersRoutes.delete('/delete/:id', usersController.delete)
 
 // Exporta
 module.exports = usersRoutes
