@@ -13,6 +13,7 @@ const usersController = new UsersController()
 
 // Rotas
 usersRoutes.post('/create', usersController.create)
+usersRoutes.get('/show', usersController.show)
 
 
 // Exporta
