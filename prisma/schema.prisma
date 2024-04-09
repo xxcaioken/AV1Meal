@@ -19,3 +19,10 @@ model User {
   email String
   @@map("users")
 }
+
+model Meal {
+  id String @id @default(uuid())
+  name String
+  date DateTime @default(now())
+  respectingRestriction Boolean @default(true) 
+}

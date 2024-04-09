@@ -9,14 +9,12 @@ class UsersController{
        try{
            const { name, email  } = request.body
 
-
            const user = await prisma.user.create({
                data: {
                    name,
                    email,
                },
            })
-
 
            response.json(user)
        }catch (err) {
