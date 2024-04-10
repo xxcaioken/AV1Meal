@@ -35,7 +35,6 @@ class UsersController{
       const user = await prisma.user.findUnique({
         where: { email },
       });
-      console.log(user)
       if (!user) {
         return response
           .status(403)
@@ -59,61 +58,61 @@ class UsersController{
     }
   }
 
-   async show(request, response){
-        try{
-            const users = await prisma.user.findMany();
+//    async show(request, response){
+//         try{
+//             const users = await prisma.user.findMany();
 
-            response.json(users)
+//             response.json(users)
             
-        }catch (err) { 
-            return response.status(409).send()
-        }
-    }
+//         }catch (err) { 
+//             return response.status(409).send()
+//         }
+//     }
 
-    async update(request, response){
-        try{
+//     async update(request, response){
+//         try{
             
-            const { name, email } = request.body
-            const { id } = request.params
+//             const { name, email } = request.body
+//             const { id } = request.params
             
-            const result = await prisma.user.update({
-                where: {
-                    id: id,
-                },
-                data: {
-                    name: name,
-                    email: email,
-                },
-            });
+//             const result = await prisma.user.update({
+//                 where: {
+//                     id: id,
+//                 },
+//                 data: {
+//                     name: name,
+//                     email: email,
+//                 },
+//             });
 
-            return response.status(200).send()
+//             return response.status(200).send()
 
-        }catch (err) { 
-            return response.status(409).send()
-        }
+//         }catch (err) { 
+//             return response.status(409).send()
+//         }
 
-    }
+//     }
 
-    async delete(request, response){
+//     async delete(request, response){
         
-        try{
-            const { id } = request.params
-            //const { id } = request.body
-            console.log(`id: ${id}`)
+//         try{
+//             const { id } = request.params
+//             //const { id } = request.body
+//             console.log(`id: ${id}`)
 
         
-            const deleteUser = await prisma.user.delete({
-                where: {
-                    id: id,
-                },
-            })
+//             const deleteUser = await prisma.user.delete({
+//                 where: {
+//                     id: id,
+//                 },
+//             })
 
-            return response.status(200).send()
+//             return response.status(200).send()
 
-        }catch (err) { 
-            return response.status(409).send()
-        }
-    }
+//         }catch (err) { 
+//             return response.status(409).send()
+//         }
+//     }
 }
 
 

@@ -1,51 +1,86 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const AuthController = require('../controllers/AuthController')
+
 
 
 class MealController{
 
    async create(request, response){
-       try{
+
+    const authController = new AuthController()
+    var a = await authController.canRunRequest(request, response);
+
+        try{
            const { name, date, respectingRestriction } = request.body
-           console.log(name, date, respectingRestriction)
-           const user = await prisma.meal.create({
+           
+           const meal = await prisma.meal.create({
                data: {
                 name,
                 date,
-                respectingRestriction
+                respectingRestriction,
+                userId: a.user.id
                },
            })
-
-           response.json(user)
+      
+           response.json(meal)
        }catch (err) {
+            console.log(err)
            return response.status(409).send()
        }
    }
 
-//    async show(request, response){
-//     try{
-//         const users = await prisma.meal.findMany();
+    async show(request, response){
+    const authController = new AuthController()
+    var a = await authController.canRunRequest(request, response);
 
-//         response.json(users)
+     try{
+         const users = await prisma.meal.findMany({where:{userId: a.user.id}});
+
+         response.json(users)
         
-//     }catch (err) { 
-//         return response.status(409).send()
-//     }
-// }
+     }catch (err) { 
+         return response.status(409).send()
+     }
+ }
+
+ async showUnique(request, response){
+    const authController = new AuthController()
+    var a = await authController.canRunRequest(request, response);
+
+     try{
+         const users = await prisma.meal.findUnique({where:{userId: a.user.id,id: request.body.id}});
+
+         response.json(users)
+        
+     }catch (err) { 
+         return response.status(409).send()
+     }
+ }
 
 async update(request, response){
+    const authController = new AuthController()
+    var a = await authController.canRunRequest(request, response);
+
     try{
-        
-        const { name, email } = request.body
-        const { id } = request.params
-        
+        const { id,name, date, respectingRestriction } = request.body
+        console.log(id,name, date, respectingRestriction);
+        const mealtoupdate = prisma.meal.findUnique({
+            where: {
+                id: id,
+                userId: a.user.id
+            }
+        })
+
         prisma.meal.update({
             where: {
                 id: id,
+                userId: a.user.id
             },
             data: {
-                name: name,
-                email: email,
+                name : name != undefined ? name: mealtoupdate.name,
+                date,
+                respectingRestriction,
             },
         });
 
@@ -58,16 +93,16 @@ async update(request, response){
 }
 
 async delete(request, response){
-    
-    try{
-        const { id } = request.params
-        //const { id } = request.body
-        console.log(`id: ${id}`)
+    const authController = new AuthController()
+    var a = await authController.canRunRequest(request, response);
 
-    
+    try{
+        const { id } = request.body
+
         await prisma.meal.delete({
             where: {
                 id: id,
+                userId: a.user.id
             },
         })
 
