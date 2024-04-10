@@ -11,10 +11,8 @@ const metricsController = new MetricsController()
 
 // Rotas
 metricsRoutes.get('/getMealCount', metricsController.getMealCount)
+metricsRoutes.get('/getCorrectMealCount', metricsController.getCorrectMealCount)
 metricsRoutes.get('/getoutMealCount', metricsController.getoutMealCount)
-// mealRoutes.get('/show', mealController.show)
-// mealRoutes.get('/showUnique', mealController.showUnique)
-// mealRoutes.put('/update', mealController.update)
-// mealRoutes.delete('/delete', mealController.delete)
-// Exporta
+metricsRoutes.get('/longest',metricsController.getLongestStreak)
+
 module.exports = metricsRoutes
