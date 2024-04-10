@@ -13,6 +13,7 @@ class MealController{
 
         try{
            const { name, date, description, respectingRestriction } = request.body
+
            
            const meal = await prisma.meal.create({
                data: {

@@ -10,7 +10,7 @@ const usersRoutes = Router()
 const usersController = new UsersController()
 
 
-// Rotas
+// Rotas 
 usersRoutes.post('/create', usersController.create)
 usersRoutes.post('/login', usersController.login)
 usersRoutes.get('/show',  usersController.show)
